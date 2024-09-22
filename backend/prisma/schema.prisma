@@ -1,0 +1,57 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// Все поля, определенные в моделях призмы, по умолчанию required.
+model User {
+  id             String          @id @default(cuid())
+  email          String          @unique
+  password       String
+  isActivated    Boolean         @default(false)
+  activationLink String          @unique
+  token          Token?
+  shortenedLinks ShortenedLink[]
+  resetToken     ResetToken?
+}
+
+model Token {
+  id           String @id @default(cuid())
+  user         User   @relation(fields: [userId], references: [id])
+  userId       String @unique
+  refreshToken String @unique
+}
+
+model ShortenedLink {
+  id         String   @id @default(cuid())
+  shortened  String   @unique
+  full       String
+  clickCount Int      @default(0)
+  createdAt  DateTime @default(now())
+  expiresAt  DateTime 
+  author     User     @relation(fields: [authorId], references: [id])
+  authorId   String
+
+  @@unique([authorId, full])
+}
+
+model ResetToken {
+  id         String @id @default(cuid())
+  resetToken String @unique
+
+  createdAt DateTime @default(now())
+  expiresAt DateTime
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @unique
+}
