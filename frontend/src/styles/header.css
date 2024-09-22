@@ -1,0 +1,17 @@
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+
+    height: 60px;
+
+    background-color: #131313;
+
+    padding-inline: 60px;
+}
+
+.header__profile {
+    display: flex;
+    gap: 15px;
+}

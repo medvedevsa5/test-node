@@ -1,0 +1,34 @@
+.main-page {
+    flex-grow: 1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.main-page__form {
+    width: 100%;
+    padding: 150px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.main-page__input {
+    flex-grow: 1;
+    height: 50px;
+}
+
+.main-page__message {
+    flex-grow: 1;
+    height: 50px;
+    text-align: center;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.main-page__button {
+    height: 50px;
+}
